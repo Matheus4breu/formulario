@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Programa Trilhas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-introducao">
+        <img src="imagens/logo-trilhas-inova.png" alt="Logo do Programa Trilhas" class="logo">
+    </div>
+
+    <div class="caixa-formulario">
+        <h1>Login</h1>
+        <p class="descricao">Faça login para acessar o Progama Trilhas.</p>
+
+        <form id="formLogin">
+            <div class="sessao-formulario">
+                <div class="grupo-campo">
+                    <label for="loginEmail">E-mail</label>
+                    <input class="campo-texto" type="email" id="loginEmail" name="loginEmail" placeholder="Digite seu e-mail" required>
+                    <div class="mensagem-erro" id="erroEmail" style="display: none;"></div>
+                </div>
+                <div class="grupo-campo">
+                    <label for="loginSenha">Senha</label>
+                    <input class="campo-texto" type="password" id="loginSenha" name="loginSenha" placeholder="Digite sua senha" required>
+                    <div class="mensagem-erro" id="erroSenha" style="display: none;"></div>
+                </div>
+                <div class="mensagem-erro" id="loginError" style="display: none;"></div>
+            </div>
+
+            <div class="acoes-formulario">
+                <button type="button" id="cadastrar" onclick="window.location.href='index.html'">Criar conta</button>
+                <button type="submit" id="entrar">Entrar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+/* estilização geral */
+body {
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 400;
+    font-size: 14px;
+    background-color: #2135A6; 
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+}
+
+/* imagem de introdução */
+.imagem-introducao {
+    max-width: 80%;
+    height: auto;
+    border-radius: 12px;
+}
+
+
+/* estilização do logotipo */
+.logo {
+    max-width: 300px; 
+    margin-top: 20px;
+}
+
+/* Caixa principal do formulário */
+.caixa-formulario {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+/* Títulos principais */
+h1, h2 {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Sessão do formulário */
+.sessao-formulario {
+    margin-top: 5%;
+    margin-bottom: 20px;
+}
+
+.sessao-formulario h2 {
+    margin-bottom: 15px;
+}
+
+
+
+.descricao{
+    margin-bottom: 10%;
+
+}
+/* Estilização de rótulos */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* Campos de entrada de texto */
+.campo-texto {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    color: #333;
+}
+
+/* cor do placeholder nos campos de entrada */
+.campo-texto::placeholder {
+    color: #aaa;
+}
+
+/* campo de envio de arquivos */
+input[type="file"] {
+    border: 2px solid;
+    padding: 20px;
+    width: 100%;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+}
+
+/* remove o botão padrão de seleção de arquivo */
+input[type="file"]::file-selector-button {
+    display: none;
+}
+
+/* conteiner estilizado para upload de arquivos */
+.campo-arquivo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: #5c5f63;
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* efeito ao passar o mouse no campo de envio */
+.campo-arquivo-container:hover {
+    background-color: #e9ecef;
+}
+
+/* select para escolha de sexo */
+select#sexo {
+    color: #000000;
+}
+
+/* oculta a primeira opção do select */
+select#sexo option:first-child {
+    display: none;
+}
+
+/* conteiner das trilhas */
+.container-trilhas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* estilo dos itens da trilha */
+.item-trilha {
+    flex: 1 1 calc(50% - 10px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+/* açoes do formulario (botões */
+.acoes-formulario {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* estilizaçao dos botões */
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* botão de envio */
+button#enviar {
+    background-color: #000000;
+    color: white;
+}
+
+/* botão de cancelamento */
+button#cancelar {
+    background-color: #000000;
+    color: white;
+}
+
+/* efeito ao passar o mouse nos botões */
+button:hover {
+    opacity: 0.6;
+}
+
+/* responsividade   */
+@media (max-width: 768px) {
+    .caixa-formulario {
+        width: 90%;
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .item-trilha {
+        flex: 1 1 100%;
+    }
+}
+
+/* esconde os marcadores */
+.container-trilhas input[type="radio"] {
+    display: none;
+}
+
+/* estiliza os rótulos como botões */
+.item-trilha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #000000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* efeito ao passar o mouse nos itens da trilha */
+.item-trilha:hover {
+    background-color: #252525;
+    color: white;
+}
+
+/* estilizaçao para quando um item da trilha for selecionado */
+.container-trilhas input[type="radio"]:checked + .item-trilha {
+    background-color: #000000;
+    color: white;
+}
+
+/* conteiner de introdução */
+.container-introducao {
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #2135A6;
+    padding: 20px;
+}
+
+

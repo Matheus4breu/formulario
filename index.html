@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Inscrição - Programa Trilhas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- introdução com imagem e logo -->
+    <div class="container-introducao">
+        <img src="imagens/Ilustration.png" alt="Imagem de Apresentação" class="imagem-introducao">
+        <img src="imagens/logo-trilhas-inova.png" alt="Logo do Programa Trilhas" class="logo">
+    </div>
+
+    <!--  formulario -->
+    <div class="caixa-formulario">
+        <!-- titulo e descrição do formulario -->
+            <h1>Formulário de Inscrição</h1>
+            <p class="descricao">Preencha com os seus dados abaixo para fazer sua inscrição no Programa
+                Trilhas.</p>
+        
+
+        <!-- Início do formulario -->
+        <form id="formularioInscricao">
+            
+            <!-- Seção de Dados Pessoais -->
+            <div class="sessao-formulario">
+                <h2>Dados Pessoais</h2>
+                <!-- Campos de entrada para dados pessoais -->
+                <div class="grupo-campo">
+                    <label for="nomeCompleto">Nome completo</label>
+                    <input class="campo-texto" type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Nome" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="email">E-mail</label>
+                    <input class="campo-texto" type="email" id="email" name="email" placeholder="e-mail" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="telefone">Telefone</label>
+                    <input class="campo-texto" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="dataNascimento">Data de Nascimento</label>
+                    <input class="campo-texto" type="text" id="dataNascimento" name="dataNascimento" placeholder="__/__/____" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="cpf">CPF</label>
+                    <input class="campo-texto" type="text" id="cpf" name="cpf" placeholder="000.000.000-98" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="sexo">Sexo:</label>
+                    <select class="campo-texto" id="sexo" name="sexo" required>
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                <div class="grupo-campo">
+                    <label for="documentoIdentidade">Documento de identidade</label>
+                    <input class="campo-arquivo" type="file" id="documentoIdentidade" name="documentoIdentidade" required>
+                </div>
+            </div>
+
+
+            <!-- seção de endereço -->
+            <div class="sessao-formulario">
+
+                <h2>Endereço residencial</h2>
+                <!-- campos de entrada para endereço -->
+                <div class="grupo-campo">
+                    <label for="cep">CEP</label>
+                    <input class="campo-texto" type="text" id="cep" name="cep" placeholder="00000-000" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="rua">Rua</label>
+                    <input class="campo-texto" type="text" id="rua" name="rua" placeholder="Nome da Rua" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="numero">Número</label>
+                    <input class="campo-texto" type="text" id="numero" name="numero" placeholder="Numero da casa" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="cidade">Cidade</label>
+                    <input class="campo-texto" type="text" id="cidade" name="cidade" placeholder="Nome da Cidade" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="estado">Estado</label>
+                    <input class="campo-texto" type="text" id="estado" name="estado" placeholder="" required>
+                </div>
+                <div class="grupo-campo">
+                    <label for="comprovanteResidencia">Comprovante de residência</label>
+                    <input class="campo-arquivo" type="file" id="comprovanteResidencia" name="comprovanteResidencia" required>
+                </div>
+            </div>
+
+
+            <!-- seção de trilhas de aprendizagem -->
+            <div class="sessao-formulario">
+                <h2>Trilhas de aprendizagem</h2>
+                <p>Selecione apenas uma trilha:</p>
+                <div class="container-trilhas">
+                    <!-- opcões de trilha -->
+                    <input type="radio" id="frontend" name="trilha" value="frontend" required>
+                    <label for="frontend" class="item-trilha">Programação Front-end</label>
+
+                    <input type="radio" id="backend" name="trilha" value="backend" required>
+                    <label for="backend" class="item-trilha">Programação Back-end</label>
+
+                    <input type="radio" id="jogos" name="trilha" value="jogos" required>
+                    <label for="jogos" class="item-trilha">Programação de Jogos</label>
+
+                    <input type="radio" id="design" name="trilha" value="design" required>
+                    <label for="design" class="item-trilha">Design e Experiencia</label>
+
+                    <input type="radio" id="dados" name="trilha" value="dados" required>
+                    <label for="dados" class="item-trilha">Ciência de Dados</label>
+                </div>
+            </div>
+
+
+            <!-- Seção de Credenciais -->
+            <div class="sessao-formulario">
+                <h2>Senha de usuário</h2>
+                <div class="grupo-campo">
+                    <label for="senha">Senha</label>
+                    <input class="campo-texto" type="password" id="senha" name="senha" placeholder="Escolha uma senha" required>
+                    <div class="mensagem-erro" id="erroSenha" style="display: none;"></div>
+                </div>
+                <div class="grupo-campo">
+                    <label for="confirmarSenha">Confirmar Senha</label>
+                    <input class="campo-texto" type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Confirme sua senha" required>
+                    <div class="mensagem-erro" id="erroConfirmarSenha" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- seção para aceitar termos e condições -->
+            <div class="sessao-formulario">
+                <label>
+                    <input type="checkbox" name="termos" required> Declaro que li e concordo com os <a href="#">Termos e Condições</a> e com a <a href="#">Política de Privacidade</a>.
+                </label>
+            </div>
+
+            <!-- acões do formulário -->
+            <div class="acoes-formulario">
+                <button type="button" id="cancelar" class="btn btn-danger">Cancelar</button>
+                <button type="submit" id="enviar" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
