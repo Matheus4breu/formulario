@@ -1,187 +1,105 @@
-// Máscaras
-// Aplica a máscara de formatação nos campos CPF, telefone e data de nascimento
-function aplicarMascara(input, tipo) {
-    let valor = input.value.replace(/\D/g, ''); // Remove tudo que não for número
+//                        Mascaras 
 
-    if (tipo === 'cpf') {
-        // Máscara de CPF: 000.000.000-00
-        valor = valor.replace(/(\d{3})(\d)/, '$1.$2')
-                     .replace(/(\d{3})(\d)/, '$1.$2')
-                     .replace(/(\d{3})(\d{2})$/, '$1-$2');
-    } else if (tipo === 'telefone') {
-        // Máscara de telefone: (00) 00000-0000
-        valor = valor.replace(/^(\d{2})(\d)/g, '($1) $2')
-                     .replace(/(\d{5})(\d{4})$/, '$1-$2');
-    } else if (tipo === 'data') {
-        // Máscara de data: DD/MM/AAAA
-        valor = valor.replace(/(\d{2})(\d)/, '$1/$2')
-                     .replace(/(\d{2})(\d)/, '$1/$2')
-                     .replace(/(\d{4}).*/, '$1');
+//   telefone
+document.getElementById('telefone').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+    value = value.replace(/(\d{5})(\d)/, '$1-$2');
+    e.target.value = value;
+  });
+  
+  //  CPF
+  document.getElementById('cpf').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    e.target.value = value;
+  });
+  
+  //  data
+  document.getElementById('dataNascimento').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 2) value = value.replace(/(\d{2})(\d)/, '$1/$2');
+    if (value.length > 5) value = value.replace(/(\d{2})\/(\d{2})(\d+)/, '$1/$2/$3');
+    e.target.value = value;
+  });
+  
+  //  CEP
+  document.getElementById('cep').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+    e.target.value = value;
+  });
+  
+  // Validaçao de senhas
+  document.getElementById('formulario')?.addEventListener('submit', function (e) {
+    e.preventDefault();
+  
+    const senha = document.getElementById('senha').value;
+    const confirmarSenha = document.getElementById('confirmarSenha').value;
+  
+    const erroSenha = document.getElementById('erroSenha');
+    const erroConfirmar = document.getElementById('erroConfirmar');
+  
+    let temErro = false;
+  
+    erroSenha.textContent = '';
+    erroConfirmar.textContent = '';
+  
+    // Verifica se senha tem pelo menos 6 caracteres
+    if (senha.length < 6) {
+      erroSenha.textContent = 'A senha deve ter no mínimo 6 caracteres.';
+      temErro = true;
     }
-
-    input.value = valor;
-}
-
-// Validações
-// Valida campos específicos do formulário
-const validacoes = {
-    email: (valor) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor) ? '' : 'E-mail inválido',
-    cpf: (valor) => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(valor) ? '' : 'CPF inválido (formato: 000.000.000-00)',
-    telefone: (valor) => /^\(\d{2}\)\s\d{5}-\d{4}$/.test(valor) ? '' : 'Telefone inválido (formato: (00) 00000-0000)',
-    dataNascimento: (valor) => {
-        const regex = /^\d{2}\/\d{2}\/\d{4}$/;
-        if (!regex.test(valor)) return 'Data inválida (formato: DD/MM/AAAA)';
-        const [d, m, a] = valor.split('/');
-        const data = new Date(`${a}-${m}-${d}`);
-        return (data.getDate() == d && data.getMonth() + 1 == m && data.getFullYear() == a) ? '' : 'Data inválida';
+  
+    // Verifica senhas iguais
+    if (senha !== confirmarSenha) {
+      erroConfirmar.textContent = 'As senhas não coincidem.';
+      temErro = true;
     }
-};
-
-// Funções de armazenamento
-// Salva os dados do formulário no localStorage com a chave baseada no e-mail do usuário
-function salvarDadosFormulario(userId, dados) {
-    localStorage.setItem(`formulario_${userId}`, JSON.stringify(dados));
-}
-
-// Recupera os dados salvos do formulário com base no e-mail
-function recuperarDadosFormulario(userId) {
-    const dados = localStorage.getItem(`formulario_${userId}`);
-    return dados ? JSON.parse(dados) : null;
-}
-
-// Cadastro
-// Função executada ao enviar o formulário de cadastro
-function handleCadastro(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
-
-    const dados = {}; // Objeto para armazenar os dados do formulário
-    let valido = true; // Flag de validação geral
-
-    // Percorre todos os inputs e selects do formulário
-    document.querySelectorAll('#formulario input, #formulario select').forEach(input => {
-        if (input.type !== 'submit' && input.type !== 'radio' && input.type !== 'file') {
-            dados[input.id] = input.value;
-        }
-
-        if (input.type === 'radio' && input.checked) {
-            dados[input.name] = input.value;
-        }
-
-        // Validação de cada campo
-        const campo = input.id;
-        const validador = validacoes[campo];
-        const erro = validador ? validador(input.value) : '';
-        const divErro = obterOuCriarErro(input);
-
-        if (!input.value) {
-            mostrarErro(divErro, 'Campo obrigatório');
-            valido = false;
-        } else if (erro) {
-            mostrarErro(divErro, erro);
-            valido = false;
-        } else {
-            esconderErro(divErro);
-        }
-    });
-
-    if (!valido) return; // Impede envio se algum campo for inválido
-
-    // Cria objeto de login e salva no localStorage
-    const usuario = { email: dados.email, senha: dados.senha };
-    localStorage.setItem(`usuario_${dados.email}`, JSON.stringify(usuario));
-    salvarDadosFormulario(dados.email, dados);
-
+  
+    if (temErro) return;
+  
+    const email = document.getElementById('email').value;
+  
+    const dados = {
+      nome: document.getElementById('nomeCompleto').value,
+      email,
+      senha
+    };
+  
+    localStorage.setItem('usuario', JSON.stringify(dados));
     alert('Cadastro realizado com sucesso!');
-    document.getElementById('formulario').reset(); // Limpa o formulário
-}
+    window.location.href = 'login.html';
+  });
 
-// Login
-// Função de login que verifica se o e-mail e senha estão corretos
-function handleLogin(event) {
-    event.preventDefault();
-
-    const email = document.getElementById('login-email').value;
-    const senha = document.getElementById('login-senha').value;
-
-    const dadosSalvos = localStorage.getItem(`usuario_${email}`);
+  
+  // Botão cancelar
+  document.getElementById('cancelar')?.addEventListener('click', function () {
+    if (confirm('Deseja realmente cancelar?')) {
+      document.getElementById('formulario').reset();
+    }
+  });
+  
+  // Validaçao de login
+  document.getElementById('formLogin')?.addEventListener('submit', function (e) {
+    e.preventDefault();
+  
+    const email = document.getElementById('loginEmail').value;
+    const senha = document.getElementById('loginSenha').value;
+    const dadosSalvos = JSON.parse(localStorage.getItem('usuario'));
+  
     if (!dadosSalvos) {
-        alert('Usuário não encontrado!');
-        return;
+      alert('Nenhum usuário cadastrado. Crie uma conta primeiro.');
+      return;
     }
-
-    const usuario = JSON.parse(dadosSalvos);
-    if (usuario.senha === senha) {
-        alert('Login realizado com sucesso!');
-        localStorage.setItem('usuario_logado', email);
+  
+    if (email === dadosSalvos.email && senha === dadosSalvos.senha) {
+      alert('Login realizado com sucesso!');
+    
     } else {
-        alert('E-mail ou senha inválidos!');
+      alert('E-mail ou senha incorretos.');
     }
-}
-
-// Preencher formulário salvo
-// Preenche o formulário automaticamente com os dados do localStorage
-function preencherFormularioSalvo(userId) {
-    const dados = recuperarDadosFormulario(userId);
-    if (!dados) return;
-
-    Object.entries(dados).forEach(([campo, valor]) => {
-        const input = document.getElementById(campo);
-        if (input) {
-            if (input.type === 'radio') {
-                if (input.value === valor) input.checked = true;
-            } else if (input.type !== 'file') {
-                input.value = valor;
-            }
-        }
-    });
-}
-
-// Mensagens de erro
-// Exibe a mensagem de erro no campo correspondente
-function mostrarErro(div, mensagem) {
-    div.textContent = mensagem;
-    div.style.display = 'block';
-}
-
-// Esconde a mensagem de erro
-function esconderErro(div) {
-    div.style.display = 'none';
-}
-
-// Cria a div de erro, se ainda não existir
-function obterOuCriarErro(input) {
-    let div = input.closest('.form-group')?.querySelector('.mensagem-erro');
-
-    if (!div) {
-        div = document.createElement('div');
-        div.className = 'mensagem-erro';
-        div.style.color = 'red';
-        div.style.fontSize = '0.9em';
-        div.style.marginTop = '5px';
-        input.insertAdjacentElement('afterend', div);
-    }
-
-    return div;
-}
-
-//  Eventos 
-
-
-// Configura os eventos assim que a página for carregada
-document.addEventListener('DOMContentLoaded', () => {
-    const formulario = document.getElementById('formulario');
-    if (formulario) {
-        formulario.addEventListener('submit', handleCadastro);
-
-        const usuarioLogado = localStorage.getItem('usuario_logado');
-        if (usuarioLogado) preencherFormularioSalvo(usuarioLogado);
-
-        // Aplica as máscaras automaticamente nos campos conforme digitado
-        document.getElementById('cpf')?.addEventListener('input', (e) => aplicarMascara(e.target, 'cpf'));
-        document.getElementById('telefone')?.addEventListener('input', (e) => aplicarMascara(e.target, 'telefone'));
-        document.getElementById('dataNascimento')?.addEventListener('input', (e) => aplicarMascara(e.target, 'data'));
-    }
-
-    const loginForm = document.getElementById('form-login');
-    if (loginForm) loginForm.addEventListener('submit', handleLogin);
-});
+  });
+  
