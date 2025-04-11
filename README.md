@@ -41,18 +41,10 @@ Este projeto é um formulário de inscrição para o **Programa Trilhas**, desen
 
 3. Após o cadastro, use `login.html` para realizar login com os dados cadastrados.
 
-## Imagens do Projeto
-
-### Página de Inscrição
-![Formulário](./screenshots/formulario.png)
-
-### Página de Login
-![Login](./screenshots/login.png)
 
 ## Autor
 
 Desenvolvido por **Matheus Abreu** como parte do Programa Trilhas - FAPEMA/SECTI - Inova Maranhão.
 
----
 
 **Observação:** Este projeto utiliza `localStorage` apenas para fins de demonstração. Para produção, recomenda-se a utilização de um banco de dados e back-end seguros.
